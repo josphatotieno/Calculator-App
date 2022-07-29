@@ -1,0 +1,36 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(192, 189, 189);
+}
+
+#container {
+    display: grid;
+    grid-template-columns: repeat(4,50px);
+    gap: 5px;
+    place-content: center;
+}
+
+header {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.btn {
+    border: none;
+    outline: none;
+    padding: 13px 0;
+    font-size: 20px;
+    border-radius: 4px;
+    background-color: #000;
+    color: #fff;
+}
+
+.clear-btn,
+.btn-0 {
+    grid-column: 1/span 2;
+}
