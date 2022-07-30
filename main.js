@@ -6,7 +6,6 @@ const display = document.querySelector('#display');
 
 numBtns.forEach(numBtn => {
     numBtn.addEventListener('click', (e) => {
-        // console.log(e.target.textContent);
         display.textContent += e.target.textContent;
     })
 });
@@ -18,48 +17,51 @@ let secondNum = '';
 operatorBtns.forEach(operatorBtn => {
     
     operatorBtn.addEventListener('click', (e) => {
-        
-        // console.log(e.target.textContent);
+    
         if(display.textContent !== '') {
             firstNum = display.textContent;
+        } else if(/[*]/.test(display.textContent)) {
+            multiply(firstNum,secondNum);
         }
 
-        // console.log(num,operatorBtn.textContent);
         display.textContent += e.target.textContent;
         operator = e.target.textContent;
-
-        // console.log(firstNum,operator);
     })
 
     
 })
 
-
+function operate(firstNum,secondNum,operator) {
+    if(operator === '+') {
+        add(firstNum,secondNum);
+    } else if(operator === '-') {
+        substract(firstNum,secondNum);
+    } else if(operator === '*') {
+        multiply(firstNum,secondNum);
+    } else if(operator === '/') {
+        divide(firstNum,secondNum);
+    }
+}
 
 equalsBtn.addEventListener('click', () => {
     if(/[*]/.test(display.textContent)) {
         const indexOfOperator = display.textContent.indexOf('*');
         secondNum = display.textContent.slice(indexOfOperator+1);
 
-        multiply(firstNum,secondNum)
     } else if(/[+]/.test(display.textContent)) {
         const indexOfOperator = display.textContent.indexOf('+');
         secondNum = display.textContent.slice(indexOfOperator+1);
-
-        add(firstNum,secondNum)
 
     } else if(/[-]/.test(display.textContent)) {
         const indexOfOperator = display.textContent.indexOf('-');
         secondNum = display.textContent.slice(indexOfOperator+1);
 
-        substract(firstNum,secondNum)
-
     } else if(/[/]/.test(display.textContent)) {
         const indexOfOperator = display.textContent.indexOf('/');
         secondNum = display.textContent.slice(indexOfOperator+1);
-
-        divide(firstNum,secondNum)
     } 
+
+    operate(firstNum,secondNum,operator);
 
 });
 
