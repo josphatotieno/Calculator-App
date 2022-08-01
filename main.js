@@ -21,18 +21,44 @@ operatorBtns.forEach(operatorBtn => {
     
     operatorBtn.addEventListener('click', (e) => {
     
-        if(display.textContent !== '') {
+        if(/[^0-9]/.test(display.textContent) === false) {
 
-            if(/[*]/.test(display.textContent) || /[+]/.test(display.textContent) || /[-]/.test(display.textContent) || /[/]/.test(display.textContent)) {
-                findFirstAndSecondNum()
-            }
-            
             firstNum = display.textContent;
 
             display.textContent += e.target.textContent;
-            operator = e.target.textContent;
+            
+        } else if(/[*]/.test(display.textContent) || /[+]/.test(display.textContent) || /[-]/.test(display.textContent) || /[/]/.test(display.textContent)) {
+            const regex = /[*](?=[0-9])/;
+            const regex2 = /[*](?![0-9])/
+            if(regex.test(display.textContent)) {
+                findFirstAndSecondNum();
+            } else if(regex2.test(display.textContent)){
+               display.textContent = display.textContent.replace('*','*')
+            }
+            
+        }
 
-        } 
+        operator = e.target.textContent;
+
+        // if(display.textContent !== '') {
+
+        //     if(/[*]/.test(display.textContent) || /[+]/.test(display.textContent) || /[-]/.test(display.textContent) || /[/]/.test(display.textContent)) {
+        //         const regex = /[*](?=[0-9])/;
+        //         const regex2 = /[*](?![0-9])/
+        //         if(regex.test(display.textContent)) {
+        //             findFirstAndSecondNum();
+        //         } else if(regex2.test(display.textContent)){
+        //            display.textContent = display.textContent.replace('*','*')
+        //         }
+                
+        //     }
+            
+        //     firstNum = display.textContent;
+
+        //     display.textContent += e.target.textContent;
+        //     operator = e.target.textContent;
+
+        // } 
     })
 })
 
