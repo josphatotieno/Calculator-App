@@ -19,16 +19,18 @@ operatorBtns.forEach(operatorBtn => {
     operatorBtn.addEventListener('click', (e) => {
     
         if(display.textContent !== '') {
+
+            if(/[*]/.test(display.textContent)) {
+                findFirstAndSecondNum()
+            }
+            console.log(findSecondNum(),secondNum);
             firstNum = display.textContent;
-        } else if(/[*]/.test(display.textContent)) {
-            multiply(firstNum,secondNum);
-        }
 
-        display.textContent += e.target.textContent;
-        operator = e.target.textContent;
+            display.textContent += e.target.textContent;
+            operator = e.target.textContent;
+
+        } 
     })
-
-    
 })
 
 function operate(firstNum,secondNum,operator) {
@@ -44,6 +46,14 @@ function operate(firstNum,secondNum,operator) {
 }
 
 equalsBtn.addEventListener('click', () => {
+    findSecondNum();
+
+    operate(firstNum,secondNum,operator);
+
+});
+
+
+function findSecondNum() {
     if(/[*]/.test(display.textContent)) {
         const indexOfOperator = display.textContent.indexOf('*');
         secondNum = display.textContent.slice(indexOfOperator+1);
@@ -60,10 +70,37 @@ equalsBtn.addEventListener('click', () => {
         const indexOfOperator = display.textContent.indexOf('/');
         secondNum = display.textContent.slice(indexOfOperator+1);
     } 
+}
 
-    operate(firstNum,secondNum,operator);
+function findFirstAndSecondNum() {
+    if(/[*]/.test(display.textContent)) {
+       firstNum = display.textContent.split('*')[0];
+       secondNum = display.textContent.split('*')[1];
 
-});
+       operate(firstNum,secondNum,operator)
+
+
+    } else if(/[+]/.test(display.textContent)) {
+        firstNum = display.textContent.split('+')[0];
+        secondNum = display.textContent.split('+')[1];
+
+         operate(firstNum,secondNum,operator)
+
+    } else if(/[-]/.test(display.textContent)) {
+        firstNum = display.textContent.split('-')[0];
+        secondNum = display.textContent.split('-')[1];
+
+        operate(firstNum,secondNum,operator);
+
+    } else if(/[/]/.test(display.textContent)) {
+        firstNum = display.textContent.split('/')[0];
+        secondNum = display.textContent.split('/')[1];
+
+        operate(firstNum,secondNum,operator);
+    } 
+}
+
+
 
 function add(num1,num2) {
     display.textContent = parseInt(num1) + parseInt(num2);
