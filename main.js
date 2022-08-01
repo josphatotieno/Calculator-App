@@ -1,8 +1,13 @@
 const numBtns = document.querySelectorAll('.num-btn');
 const operatorBtns = document.querySelectorAll('.operator-btn');
-const equalsBtn = document.querySelector('.equals-btn')
+const equalsBtn = document.querySelector('.equals-btn');
+const deleteBtn = document.querySelector('.delete-btn')
 const clearBtn = document.querySelector('.clear-btn');
 const display = document.querySelector('#display');
+
+let firstNum = '';
+let operator = '';
+let secondNum = '';
 
 numBtns.forEach(numBtn => {
     numBtn.addEventListener('click', (e) => {
@@ -10,9 +15,7 @@ numBtns.forEach(numBtn => {
     })
 });
 
-let firstNum = '';
-let operator = '';
-let secondNum = '';
+
 
 operatorBtns.forEach(operatorBtn => {
     
@@ -20,10 +23,10 @@ operatorBtns.forEach(operatorBtn => {
     
         if(display.textContent !== '') {
 
-            if(/[*]/.test(display.textContent)) {
+            if(/[*]/.test(display.textContent) || /[+]/.test(display.textContent) || /[-]/.test(display.textContent) || /[/]/.test(display.textContent)) {
                 findFirstAndSecondNum()
             }
-            console.log(findSecondNum(),secondNum);
+            
             firstNum = display.textContent;
 
             display.textContent += e.target.textContent;
@@ -116,7 +119,17 @@ function divide(num1,num2) {
 
 function multiply(num1,num2) {
     display.textContent = num1 * num2;
-}
+};
+
+
+deleteBtn.addEventListener('click', () => {
+    if(display.textContent !== '') {
+        const arr = display.textContent.split('');
+        arr.splice(arr.length-1);
+        display.textContent = arr.join('');
+    }
+    
+})
 
 clearBtn.addEventListener('click', () => {
     display.textContent = '';
